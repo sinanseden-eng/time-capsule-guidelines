@@ -1,555 +1,991 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Time Capsule for the Year 2225</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        /* Custom styles for animations and aesthetics */
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .checklist-item:hover .checklist-icon {
-            transform: scale(1.2);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        }
-        .checklist-item.completed p {
-            text-decoration: line-through;
-            opacity: 0.6;
-        }
-        .progress-bar-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            z-index: 50;
-            background-color: rgba(15, 23, 42, 0.5); /* Darker background */
-        }
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #5EEAD4, #60A5FA); /* Teal to Blue */
-            transition: width 0.1s linear;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time Capsule 2226 — Project Guidelines & Checkpoint Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f5132;
+      --primary-light: #198754;
+      --primary-subtle: #d1e7dd;
+      --secondary: #0d6efd;
+      --accent: #d97706;
+      --dark: #0f172a;
+      --dark-card: #1e293b;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #063d27 0%, #0f5132 50%, #157347 100%);
+      color: #ffffff;
+      padding: 56px 24px 72px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      background: radial-gradient(circle at 85% 20%, rgba(255,255,255,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .badge-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .header-desc {
+      font-size: 1.125rem;
+      max-width: 780px;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 28px;
+    }
+
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 36px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 18px 20px;
+      border-radius: var(--radius-md);
+      color: #fff;
+    }
+
+    .stat-card .label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.85;
+      margin-bottom: 4px;
+    }
+
+    .stat-card .value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+    }
+
+    /* Quick Specs Grid */
+    .specs-section {
+      margin-top: -36px;
+      position: relative;
+      z-index: 10;
+      margin-bottom: 50px;
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 20px;
+    }
+
+    .spec-box {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .spec-box h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .spec-box ul {
+      list-style: none;
+    }
+
+    .spec-box li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 8px;
+      font-size: 0.92rem;
+      color: var(--slate-700);
+    }
+
+    .spec-box li::before {
+      content: "•";
+      color: var(--primary-light);
+      position: absolute;
+      left: 4px;
+      font-weight: bold;
+    }
+
+    /* Speculative Grammar Callout */
+    .grammar-callout {
+      background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-bottom: 48px;
+    }
+
+    .grammar-callout h3 {
+      color: #1e40af;
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .grammar-callout p {
+      color: #1e3a8a;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    .grammar-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      background: #ffffff;
+      border: 1px solid #93c5fd;
+      color: #1e40af;
+      font-family: monospace;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    /* Section Headers */
+    .section-title-wrap {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .section-subtitle {
+      color: var(--slate-600);
+      font-size: 1rem;
+      margin-top: 6px;
+    }
+
+    /* Timeline Navigation */
+    .timeline-nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 14px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .timeline-btn {
+      flex: 0 0 auto;
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--slate-600);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .timeline-btn:hover {
+      background: var(--slate-100);
+      color: var(--dark);
+    }
+
+    .timeline-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(15, 81, 50, 0.25);
+    }
+
+    .timeline-btn .pill-week {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      background: rgba(0,0,0,0.08);
+      border-radius: 999px;
+    }
+
+    .timeline-btn.active .pill-week {
+      background: rgba(255,255,255,0.25);
+    }
+
+    /* Checkpoint Card */
+    .checkpoint-card {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    .checkpoint-header {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      padding: 28px 32px;
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .checkpoint-title-grp h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.45rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .meeting-badge {
+      background: var(--primary-subtle);
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .checkpoint-header p {
+      color: var(--slate-600);
+      font-size: 0.95rem;
+      margin-top: 4px;
+    }
+
+    .questions-box {
+      margin: 24px 32px 10px;
+      background: #fefce8;
+      border: 1px solid #fef08a;
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+    }
+
+    .questions-box h4 {
+      color: #854d0e;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .questions-box ul {
+      margin-left: 20px;
+      color: #713f12;
+      font-size: 0.92rem;
+    }
+
+    .questions-box li {
+      margin-bottom: 4px;
+    }
+
+    /* 3-Column Action Workflow */
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 20px;
+      padding: 24px 32px 32px;
+    }
+
+    .action-col {
+      border-radius: var(--radius-md);
+      padding: 22px;
+      border: 1px solid transparent;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .col-before {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .col-during {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+
+    .col-next {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+    }
+
+    .col-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .col-before .col-title { color: var(--slate-800); }
+    .col-during .col-title { color: #166534; }
+    .col-next .col-title { color: #1e40af; }
+
+    .action-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-grow: 1;
+    }
+
+    .action-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9rem;
+      line-height: 1.45;
+      color: var(--slate-700);
+    }
+
+    .action-item input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--slate-300);
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+      margin-top: 2px;
+      position: relative;
+      flex-shrink: 0;
+      background: #ffffff;
+      transition: all 0.15s ease;
+    }
+
+    .action-item input[type="checkbox"]:checked {
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .action-item input[type="checkbox"]:checked::after {
+      content: "✔";
+      font-size: 11px;
+      color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .action-item input[type="checkbox"]:checked + span {
+      text-decoration: line-through;
+      color: var(--slate-600);
+      opacity: 0.8;
+    }
+
+    /* Print & Action Controls */
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid var(--slate-200);
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      border: 1px solid var(--slate-300);
+      color: var(--slate-700);
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-secondary:hover {
+      background: var(--slate-100);
+    }
+
+    .progress-track {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--slate-600);
+    }
+
+    .progress-bar-bg {
+      width: 160px;
+      height: 8px;
+      background: var(--slate-200);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary-light);
+      transition: width 0.3s ease;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .checkpoint-header {
+        padding: 20px;
+      }
+      .questions-box {
+        margin: 16px 20px 0;
+      }
+      .workflow-grid {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
-<body class="bg-slate-900 text-slate-200 antialiased">
+<body>
 
-    <!-- Animated Progress Tracker -->
-    <div class="progress-bar-container shadow-lg">
-        <div id="progressBar" class="progress-bar rounded-r-full"></div>
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <div class="badge-tag">Darüşşafaka Lisesi • Prep English Term Project 2026-2027</div>
+      <h1>A Time Capsule for the Year 2226</h1>
+      <p class="header-desc">
+        How will humanity remember us in two centuries? Select 5–7 authentic artifacts, justify their historical significance, and use speculative deduction to bridge the gap between our era and the year 2226.
+      </p>
+
+      <div class="stats-bar">
+        <div class="stat-card">
+          <div class="label">Project Weighting</div>
+          <div class="value">Report 50% • Product 25% • Talk 25%</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Selected Artifacts</div>
+          <div class="value">5 – 7 Items</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Oral Defense</div>
+          <div class="value">10 – 15 Minutes</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Official Meetings</div>
+          <div class="value">5 Mandatory Checks</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- SPECS & RULES -->
+    <section class="specs-section">
+      <div class="specs-grid">
+        <div class="spec-box">
+          <h3>📌 Submission Requirements</h3>
+          <ul>
+            <li><strong>Strict Plagiarism Policy:</strong> Every idea, quote, and background source must be cited. Zero tolerance for copying.</li>
+            <li><strong>Typography & Layout:</strong> Term papers must be written in <strong>Calibri 11 pt</strong>, tidy, and submitted in a folder.</li>
+            <li><strong>Deliverables:</strong> Student Name, Number, and Class clearly stated on both soft copy and hard copy dossiers.</li>
+          </ul>
+        </div>
+        <div class="spec-box">
+          <h3>📦 Final Product Options</h3>
+          <ul>
+            <li><strong>Option A (Physical):</strong> A curated time capsule box/model containing actual items, mock-ups, or 3D replicas.</li>
+            <li><strong>Option B (Digital):</strong> An interactive website, detailed presentation (PowerPoint/Keynote), or an iMovie documentary.</li>
+            <li><strong>Option C (Catalogue):</strong> A formal, high-level publication in the style of a museum catalogue.</li>
+          </ul>
+        </div>
+        <div class="spec-box">
+          <h3>🎯 The 3 Core Justification Pillars</h3>
+          <ul>
+            <li><strong>Identity & Function:</strong> What the item is and its primary purpose in our contemporary 2020s society.</li>
+            <li><strong>Narrative Alignment:</strong> Why it embodies your capsule's core message (Tech, Climate, Global Culture).</li>
+            <li><strong>Future Misinterpretation:</strong> How citizens of 2226 might misunderstand it using speculative language.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRAMMAR HUB -->
+    <section class="grammar-callout">
+      <h3>💡 Target Grammar Focus: Speculative Past & Modal Deductions</h3>
+      <p>
+        Future generations won't have our context. In your report and oral presentation, analyze how items could be misunderstood using advanced modal structures:
+      </p>
+      <div class="grammar-pills">
+        <span class="pill">they might think...</span>
+        <span class="pill">it must have been used for...</span>
+        <span class="pill">future historians could interpret it as...</span>
+        <span class="pill">they can't have known about...</span>
+        <span class="pill">it could easily be mistaken for...</span>
+        <span class="pill">it may have signified...</span>
+      </div>
+    </section>
+
+    <!-- SECTION TITLE -->
+    <div class="section-title-wrap">
+      <h2 class="section-title">Official Checkpoint Roadmap</h2>
+      <p class="section-subtitle">Synced with Darüşşafaka Proje Takip Formu — Complete your tasks before each teacher conference.</p>
     </div>
 
-    <div class="container mx-auto px-4 py-16 sm:py-24">
-
-        <!-- Header Section -->
-        <header class="text-center mb-16 fade-in-section">
-            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-blue-400 pb-3">
-                A Time Capsule for 2225
-            </h1>
-            <p class="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto mt-4">
-                Your mission: curate a message for the future. Choose wisely what stories and objects will define our era.
-            </p>
-        </header>
-
-        <!-- Main Content - Project Steps -->
-        <main class="space-y-12">
-
-            <!-- Step 1 Card -->
-            <section id="step-1" class="fade-in-section p-8 bg-slate-800/50 rounded-2xl shadow-2xl border border-slate-700 backdrop-blur-sm transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(94,234,212,0.5)]">
-                <div class="flex items-center mb-6">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-teal-500 flex items-center justify-center text-xl font-bold shadow-lg">1</div>
-                    <h2 class="ml-4 text-2xl sm:text-3xl font-bold text-teal-300">First Check: Defining Your Core Message</h2>
-                </div>
-                
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="font-semibold text-lg text-slate-100 mb-3 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-teal-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                            Your Task
-                        </h3>
-                        <ul class="space-y-3">
-                           <li class="checklist-item flex items-start cursor-pointer group" onclick="toggleCheckbox(this)">
-                               <div class="checklist-icon mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 border-slate-500 bg-slate-700 flex items-center justify-center transition-all duration-300">
-                                   <svg class="w-4 h-4 text-teal-300 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <p class="ml-4 text-slate-300">Understand the purpose and challenges of creating a time capsule.</p>
-                           </li>
-                           <li class="checklist-item flex items-start cursor-pointer group" onclick="toggleCheckbox(this)">
-                               <div class="checklist-icon mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 border-slate-500 bg-slate-700 flex items-center justify-center transition-all duration-300">
-                                   <svg class="w-4 h-4 text-teal-300 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <p class="ml-4 text-slate-300">Brainstorm 2-3 potential "core messages" about our current era (e.g., technology, environment, culture).</p>
-                           </li>
-                           <li class="checklist-item flex items-start cursor-pointer group" onclick="toggleCheckbox(this)">
-                               <div class="checklist-icon mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 border-slate-500 bg-slate-700 flex items-center justify-center transition-all duration-300">
-                                   <svg class="w-4 h-4 text-teal-300 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <p class="ml-4 text-slate-300">Choose one key idea you want to communicate to the people of 2225.</p>
-                           </li>
-                        </ul>
-                    </div>
-                    <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                        <h3 class="font-semibold text-lg text-slate-100 mb-3 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-teal-400"><path d="m9 11 3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-                            Expectations
-                        </h3>
-                        <p class="text-slate-400">By the end of our meeting, you will have a clear, focused, and approved "core message" that will serve as the foundation for your entire project.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- NEW: Outline Prep Card -->
-            <section id="outline-prep" class="fade-in-section p-8 bg-slate-800/50 rounded-2xl shadow-2xl border border-slate-700 backdrop-blur-sm">
-                <div class="flex items-center mb-6">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-500 flex items-center justify-center shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                    </div>
-                    <h2 class="ml-4 text-2xl sm:text-3xl font-bold text-indigo-300">Outline Prep: Questions to Consider</h2>
-                </div>
-                <p class="text-slate-400 mb-6">Before our second meeting, think through these questions. They will help you build the outline for your report and choose the most impactful items for your capsule.</p>
-                <div class="space-y-4 text-slate-300">
-                    <div class="flex items-start space-x-3">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-1 text-indigo-400"><path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20Z"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                        <div>
-                            <h4 class="font-semibold text-indigo-200">The Big Picture (Your Introduction):</h4>
-                            <p class="text-slate-400">What is the single most important story about today that you want people in 2225 to understand? How will your report's introduction explain this core message and the purpose of your specific capsule?</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start space-x-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-1 text-indigo-400"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="m12 14-1-4 1-4 1 4-1 4"/></svg>
-                        <div>
-                            <h4 class="font-semibold text-indigo-200">The Items (Your Body Paragraphs):</h4>
-                            <p class="text-slate-400">For each potential item, ask: Does this object tell a story on its own? How does it connect directly to my core message? If you could only pick one item to represent your entire message, which would it be, and why?</p>
-                        </div>
-                    </div>
-                     <div class="flex items-start space-x-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-1 text-indigo-400"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0L12 2.69z"/></svg>
-                        <div>
-                            <h4 class="font-semibold text-indigo-200">The Future (Your Analysis):</h4>
-                            <p class="text-slate-400">How could an item be completely misunderstood? What context or knowledge might be lost over 200 years? (e.g., They might think a smartphone was just a decorative black rock.) How will you use speculative language to explore these possibilities?</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Step 2 Card -->
-            <section id="step-2" class="fade-in-section p-8 bg-slate-800/50 rounded-2xl shadow-2xl border border-slate-700 backdrop-blur-sm transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(96,165,250,0.5)]">
-                 <div class="flex items-center mb-6">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-xl font-bold shadow-lg">2</div>
-                    <h2 class="ml-4 text-2xl sm:text-3xl font-bold text-blue-300">Second Check: Item Selection & Research</h2>
-                </div>
-                
-                 <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="font-semibold text-lg text-slate-100 mb-3 flex items-center">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-blue-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                           Your Task
-                        </h3>
-                        <ul class="space-y-3">
-                           <li class="checklist-item flex items-start cursor-pointer group" onclick="toggleCheckbox(this)">
-                               <div class="checklist-icon mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 border-slate-500 bg-slate-700 flex items-center justify-center transition-all duration-300">
-                                   <svg class="w-4 h-4 text-blue-300 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <p class="ml-4 text-slate-300">Brainstorm a list of potential items (physical, digital, etc.) for your capsule.</p>
-                           </li>
-                           <li class="checklist-item flex items-start cursor-pointer group" onclick="toggleCheckbox(this)">
-                               <div class="checklist-icon mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 border-slate-500 bg-slate-700 flex items-center justify-center transition-all duration-300">
-                                   <svg class="w-4 h-4 text-blue-300 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <p class="ml-4 text-slate-300">Select the final 5–7 items that best represent your core message.</p>
-                           </li>
-                           <li class="checklist-item flex items-start cursor-pointer group" onclick="toggleCheckbox(this)">
-                               <div class="checklist-icon mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 border-slate-500 bg-slate-700 flex items-center justify-center transition-all duration-300">
-                                   <svg class="w-4 h-4 text-blue-300 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <p class="ml-4 text-slate-300">Begin outlining your justification for each item and your overall report.</p>
-                           </li>
-                        </ul>
-                    </div>
-                    <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                        <h3 class="font-semibold text-lg text-slate-100 mb-3 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-blue-400"><path d="m9 11 3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-                            Expectations
-                        </h3>
-                        <p class="text-slate-400">You will present your final list of 5-7 items. We will discuss their relevance to your core message and ensure your choices are strong and defensible.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Step 3 Card -->
-            <section id="step-3" class="fade-in-section p-8 bg-slate-800/50 rounded-2xl shadow-2xl border border-slate-700 backdrop-blur-sm transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(192,132,252,0.5)]">
-                 <div class="flex items-center mb-6">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center text-xl font-bold shadow-lg">3</div>
-                    <h2 class="ml-4 text-2xl sm:text-3xl font-bold text-purple-300">Third Check: Justification Draft</h2>
-                </div>
-                
-                 <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="font-semibold text-lg text-slate-100 mb-3 flex items-center">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-purple-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                           Your Task
-                        </h3>
-                        <ul class="space-y-3">
-                           <li class="checklist-item flex items-start cursor-pointer group" onclick="toggleCheckbox(this)">
-                               <div class="checklist-icon mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 border-slate-500 bg-slate-700 flex items-center justify-center transition-all duration-300">
-                                   <svg class="w-4 h-4 text-purple-300 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <p class="ml-4 text-slate-300">Write a full rough draft of the justification for each item.</p>
-                           </li>
-                           <li class="checklist-item flex items-start cursor-pointer group" onclick="toggleCheckbox(this)">
-                               <div class="checklist-icon mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 border-slate-500 bg-slate-700 flex items-center justify-center transition-all duration-300">
-                                   <svg class="w-4 h-4 text-purple-300 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <p class="ml-4 text-slate-300">For each item, explain what it is, its significance to your core message, and how it might be interpreted or misunderstood.</p>
-                           </li>
-                           <li class="checklist-item flex items-start cursor-pointer group" onclick="toggleCheckbox(this)">
-                               <div class="checklist-icon mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 border-slate-500 bg-slate-700 flex items-center justify-center transition-all duration-300">
-                                   <svg class="w-4 h-4 text-purple-300 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <p class="ml-4 text-slate-300">Practice using speculative language (e.g., "they might think," "it must have been") to discuss future interpretations.</p>
-                           </li>
-                        </ul>
-                    </div>
-                    <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                        <h3 class="font-semibold text-lg text-slate-100 mb-3 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-purple-400"><path d="m9 11 3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-                            Expectations
-                        </h3>
-                        <p class="text-slate-400">I will provide detailed feedback on your analysis, focusing on the depth of your justifications and your correct use of speculative language.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Step 4 Card -->
-            <section id="step-4" class="fade-in-section p-8 bg-slate-800/50 rounded-2xl shadow-2xl border border-slate-700 backdrop-blur-sm transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(251,146,60,0.5)]">
-                 <div class="flex items-center mb-6">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center text-xl font-bold shadow-lg">4</div>
-                    <h2 class="ml-4 text-2xl sm:text-3xl font-bold text-orange-300">Fourth Check: Final Report & Product Plan</h2>
-                </div>
-                
-                 <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="font-semibold text-lg text-slate-100 mb-3 flex items-center">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-orange-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                           Your Task
-                        </h3>
-                        <ul class="space-y-3">
-                           <li class="checklist-item flex items-start cursor-pointer group" onclick="toggleCheckbox(this)">
-                               <div class="checklist-icon mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 border-slate-500 bg-slate-700 flex items-center justify-center transition-all duration-300">
-                                   <svg class="w-4 h-4 text-orange-300 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <p class="ml-4 text-slate-300">Revise your draft and submit the final, polished written report.</p>
-                           </li>
-                           <li class="checklist-item flex items-start cursor-pointer group" onclick="toggleCheckbox(this)">
-                               <div class="checklist-icon mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 border-slate-500 bg-slate-700 flex items-center justify-center transition-all duration-300">
-                                   <svg class="w-4 h-4 text-orange-300 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <p class="ml-4 text-slate-300">Decide on your final product format (physical, digital, or report).</p>
-                           </li>
-                           <li class="checklist-item flex items-start cursor-pointer group" onclick="toggleCheckbox(this)">
-                               <div class="checklist-icon mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 border-slate-500 bg-slate-700 flex items-center justify-center transition-all duration-300">
-                                   <svg class="w-4 h-4 text-orange-300 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <p class="ml-4 text-slate-300">Create a detailed plan or storyboard for your presentation/product.</p>
-                           </li>
-                        </ul>
-                    </div>
-                    <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                        <h3 class="font-semibold text-lg text-slate-100 mb-3 flex items-center">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-orange-400"><path d="m9 11 3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-                            Expectations
-                        </h3>
-                        <p class="text-slate-400">I will collect your final written report. We will review your product plan and schedule your final presentation date.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Step 5 Card -->
-            <section id="step-5" class="fade-in-section p-8 bg-slate-800/50 rounded-2xl shadow-2xl border border-slate-700 backdrop-blur-sm transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(236,72,153,0.5)]">
-                 <div class="flex items-center mb-6">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-pink-600 flex items-center justify-center text-xl font-bold shadow-lg">5</div>
-                    <h2 class="ml-4 text-2xl sm:text-3xl font-bold text-pink-400">Fifth Check: Final Presentation</h2>
-                </div>
-                
-                 <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="font-semibold text-lg text-slate-100 mb-3 flex items-center">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-pink-500"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                           Your Task
-                        </h3>
-                        <ul class="space-y-3">
-                           <li class="checklist-item flex items-start cursor-pointer group" onclick="toggleCheckbox(this)">
-                               <div class="checklist-icon mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 border-slate-500 bg-slate-700 flex items-center justify-center transition-all duration-300">
-                                   <svg class="w-4 h-4 text-pink-400 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <p class="ml-4 text-slate-300">Finalize your time capsule product (physical model, digital presentation, or report).</p>
-                           </li>
-                           <li class="checklist-item flex items-start cursor-pointer group" onclick="toggleCheckbox(this)">
-                               <div class="checklist-icon mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 border-slate-500 bg-slate-700 flex items-center justify-center transition-all duration-300">
-                                   <svg class="w-4 h-4 text-pink-400 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <p class="ml-4 text-slate-300">Practice your presentation to ensure it is clear, confident, and within the time limit.</p>
-                           </li>
-                           <li class="checklist-item flex items-start cursor-pointer group" onclick="toggleCheckbox(this)">
-                               <div class="checklist-icon mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 border-slate-500 bg-slate-700 flex items-center justify-center transition-all duration-300">
-                                   <svg class="w-4 h-4 text-pink-400 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <p class="ml-4 text-slate-300">Present your time capsule and its contents to the class.</p>
-                           </li>
-                        </ul>
-                    </div>
-                    <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                        <h3 class="font-semibold text-lg text-slate-100 mb-3 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-pink-500"><path d="m9 11 3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-                            Expectations
-                        </h3>
-                        <p class="text-slate-400">A polished and engaging presentation that clearly communicates your core message and demonstrates a deep, analytical approach to your selections.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Detailed Rubric Card -->
-            <section id="rubric" class="fade-in-section p-8 bg-slate-800/50 rounded-2xl shadow-2xl border border-slate-700 backdrop-blur-sm">
-                <div class="flex items-center mb-6">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500 flex items-center justify-center shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M12 20h.01"></path><path d="M12 14h.01"></path><path d="M12 8h.01"></path><path d="M12 2h.01"></path><path d="M20 12h.01"></path><path d="M14 12h.01"></path><path d="M8 12h.01"></path><path d="M2 12h.01"></path><path d="M22 12h.01"></path><path d="M12 18V6"></path><path d="M18 12H6"></path></svg>
-                    </div>
-                    <h2 class="ml-4 text-2xl sm:text-3xl font-bold text-amber-300">Detailed Grading Rubric</h2>
-                </div>
-                
-                <!-- Report Section -->
-                <div class="mb-8">
-                    <h3 class="text-xl font-bold text-slate-100 mb-4 border-b-2 border-amber-400/50 pb-2">Report Evaluation (50 Points)</h3>
-                    <div class="space-y-4">
-                        <!-- Rubric Item -->
-                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
-                            <div class="flex flex-wrap justify-between items-center gap-2">
-                                <h4 class="font-semibold text-slate-100">Cover / Table of Contents</h4>
-                                <span class="font-bold text-lg text-amber-300">2 Points</span>
-                            </div>
-                            <div class="mt-4 grid md:grid-cols-3 gap-4 text-sm">
-                                <div class="bg-green-600/20 border border-green-500/30 p-3 rounded-lg"><p><strong class="font-semibold text-green-300">2P:</strong> Included and clearly stated.</p></div>
-                                <div class="bg-yellow-600/20 border border-yellow-500/30 p-3 rounded-lg"><p><strong class="font-semibold text-yellow-300">1P:</strong> Included but not clearly stated.</p></div>
-                                <div class="bg-red-600/20 border border-red-500/30 p-3 rounded-lg"><p><strong class="font-semibold text-red-300">0P:</strong> Not included.</p></div>
-                            </div>
-                        </div>
-                         <!-- Rubric Item -->
-                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
-                            <div class="flex flex-wrap justify-between items-center gap-2">
-                                <h4 class="font-semibold text-slate-100">Organization (Summary, Intro, Conclusion, Subheadings)</h4>
-                                <span class="font-bold text-lg text-amber-300">12 Points</span>
-                            </div>
-                            <p class="text-xs text-slate-400 mt-1">A well-structured report with clear sections is essential.</p>
-                        </div>
-                        <!-- Rubric Item -->
-                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
-                            <div class="flex flex-wrap justify-between items-center gap-2">
-                                <h4 class="font-semibold text-slate-100">Content / Development (Explanation & Visuals)</h4>
-                                <span class="font-bold text-lg text-amber-300">22 Points</span>
-                            </div>
-                            <p class="text-xs text-slate-400 mt-1">Content should be detailed, well-explained, and supported with visuals.</p>
-                        </div>
-                        <!-- Rubric Item -->
-                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
-                            <div class="flex flex-wrap justify-between items-center gap-2">
-                                <h4 class="font-semibold text-slate-100">Language and Expression</h4>
-                                <span class="font-bold text-lg text-amber-300">8 Points</span>
-                            </div>
-                            <p class="text-xs text-slate-400 mt-1">Advanced vocabulary and correct grammar are expected.</p>
-                        </div>
-                         <!-- Rubric Item -->
-                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
-                            <div class="flex flex-wrap justify-between items-center gap-2">
-                                <h4 class="font-semibold text-slate-100">Use of Sources (Count, Reliability, Format, Citations)</h4>
-                                <span class="font-bold text-lg text-amber-300">8 Points</span>
-                            </div>
-                             <p class="text-xs text-slate-400 mt-1">Proper use and citation of multiple reliable sources (APA/MLA).</p>
-                        </div>
-                    </div>
-                </div>
-
-                 <!-- Presentation Section -->
-                <div class="mb-8">
-                    <h3 class="text-xl font-bold text-slate-100 mb-4 border-b-2 border-amber-400/50 pb-2">Presentation Evaluation (25 Points)</h3>
-                     <div class="space-y-4">
-                        <!-- Rubric Item -->
-                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
-                            <div class="flex flex-wrap justify-between items-center gap-2">
-                                <h4 class="font-semibold text-slate-100">Planning, Order, and Conclusion</h4>
-                                <span class="font-bold text-lg text-amber-300">5 Points</span>
-                            </div>
-                             <p class="text-xs text-slate-400 mt-1">A well-structured presentation with a logical flow and strong summary.</p>
-                        </div>
-                        <!-- Rubric Item -->
-                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
-                             <div class="flex flex-wrap justify-between items-center gap-2">
-                                <h4 class="font-semibold text-slate-100">Content Knowledge & Details</h4>
-                                <span class="font-bold text-lg text-amber-300">4 Points</span>
-                            </div>
-                             <p class="text-xs text-slate-400 mt-1">Demonstrates a satisfying level of knowledge with details and explanations.</p>
-                        </div>
-                         <!-- Rubric Item -->
-                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
-                             <div class="flex flex-wrap justify-between items-center gap-2">
-                                <h4 class="font-semibold text-slate-100">Audience Communication & Engagement</h4>
-                                <span class="font-bold text-lg text-amber-300">4 Points</span>
-                            </div>
-                             <p class="text-xs text-slate-400 mt-1">Fluent speech, effective body language, and active audience participation.</p>
-                        </div>
-                         <!-- Rubric Item -->
-                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
-                             <div class="flex flex-wrap justify-between items-center gap-2">
-                                <h4 class="font-semibold text-slate-100">Visual Impact & Use of Technology/Sources</h4>
-                                <span class="font-bold text-lg text-amber-300">8 Points</span>
-                            </div>
-                             <p class="text-xs text-slate-400 mt-1">Original, impressive ideas supported by effective visuals and technology.</p>
-                        </div>
-                        <!-- Rubric Item -->
-                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
-                             <div class="flex flex-wrap justify-between items-center gap-2">
-                                <h4 class="font-semibold text-slate-100">Time Management & Expression Skills</h4>
-                                <span class="font-bold text-lg text-amber-300">4 Points</span>
-                            </div>
-                             <p class="text-xs text-slate-400 mt-1">Effective use of the allotted time with clear and engaging language.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product Section -->
-                <div>
-                    <h3 class="text-xl font-bold text-slate-100 mb-4 border-b-2 border-amber-400/50 pb-2">Product Evaluation (25 Points)</h3>
-                     <div class="space-y-4">
-                        <!-- Rubric Item -->
-                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
-                             <div class="flex flex-wrap justify-between items-center gap-2">
-                                <h4 class="font-semibold text-slate-100">Relevance to Content</h4>
-                                <span class="font-bold text-lg text-amber-300">8 Points</span>
-                            </div>
-                             <p class="text-xs text-slate-400 mt-1">The product is fully compatible with and supportive of the project's content.</p>
-                        </div>
-                        <!-- Rubric Item -->
-                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
-                             <div class="flex flex-wrap justify-between items-center gap-2">
-                                <h4 class="font-semibold text-slate-100">Creativity and Originality</h4>
-                                <span class="font-bold text-lg text-amber-300">8 Points</span>
-                            </div>
-                             <p class="text-xs text-slate-400 mt-1">The product is unique and creative, with distinct features.</p>
-                        </div>
-                        <!-- Rubric Item -->
-                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
-                             <div class="flex flex-wrap justify-between items-center gap-2">
-                                <h4 class="font-semibold text-slate-100">Design, Layout & Interdisciplinary Work</h4>
-                                <span class="font-bold text-lg text-amber-300">6 Points</span>
-                            </div>
-                             <p class="text-xs text-slate-400 mt-1">The product is well-designed and shows support from other disciplines.</p>
-                        </div>
-                         <!-- Rubric Item -->
-                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
-                             <div class="flex flex-wrap justify-between items-center gap-2">
-                                <h4 class="font-semibold text-slate-100">Applicability / Wider Impact</h4>
-                                <span class="font-bold text-lg text-amber-300">3 Points</span>
-                            </div>
-                             <p class="text-xs text-slate-400 mt-1">The product offers a creative and applicable solution to a problem.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Rules & Grading Card -->
-            <section id="rules" class="fade-in-section p-8 bg-slate-800 rounded-2xl shadow-lg border border-slate-700">
-                <div class="flex items-center mb-6">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-cyan-500 flex items-center justify-center shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><gavel class="lucide lucide-gavel"></gavel><path d="m14 12-8.5 8.5"></path><path d="m17.5 15.5 2.5 2.5"></path><path d="m12 15 6 6"></path></svg>
-                    </div>
-                    <h2 class="ml-4 text-2xl sm:text-3xl font-bold text-cyan-300">Project Rules & Grading</h2>
-                </div>
-                <div class="grid md:grid-cols-2 gap-8 text-slate-400">
-                    <div>
-                        <h3 class="font-semibold text-lg text-slate-100 mb-3">General Rules</h3>
-                        <ul class="space-y-3 list-disc list-inside">
-                            <li>No plagiarism! You must reference all sources.</li>
-                            <li>Stick to the check days and the deadline (5 check-ins required).</li>
-                            <li>Be ready to present your work orally in class.</li>
-                            <li>All work must be your own product without outside help.</li>
-                            <li>Papers must be presentable, tidy, and well-written (Calibri, 11pt if typed). Submit in a file with your name, number, and class.</li>
-                            <li>Presentations may be supported by a physical model, digital presentation, or formal report.</li>
-                        </ul>
-                    </div>
-                    <div class="bg-slate-800/50 p-6 rounded-lg border border-slate-700">
-                        <h3 class="font-semibold text-lg text-slate-100 mb-3">Grading Breakdown</h3>
-                        <ul class="space-y-3 list-disc list-inside">
-                           <li><span class="font-semibold text-cyan-300">Report:</span> 50%</li>
-                           <li><span class="font-semibold text-cyan-300">Product:</span> 25%</li>
-                           <li><span class="font-semibold text-cyan-300">Presentation:</span> 25%</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-        </main>
+    <!-- TIMELINE NAV -->
+    <div class="timeline-nav" id="timelineNav">
+      <button class="timeline-btn active" onclick="switchWeek(5)">
+        <span class="pill-week">W5</span> Meeting 1: Topic & Core Theme
+      </button>
+      <button class="timeline-btn" onclick="switchWeek(7)">
+        <span class="pill-week">W7</span> Meeting 2: Sources & Items
+      </button>
+      <button class="timeline-btn" onclick="switchWeek(11)">
+        <span class="pill-week">W11</span> Meeting 3: Plan & Medium
+      </button>
+      <button class="timeline-btn" onclick="switchWeek(18)">
+        <span class="pill-week">W18</span> Meeting 4: First Draft
+      </button>
+      <button class="timeline-btn" onclick="switchWeek(23)">
+        <span class="pill-week">W23</span> Meeting 5: Second Draft
+      </button>
+      <button class="timeline-btn" onclick="switchWeek(29)">
+        <span class="pill-week">W29</span> Final Dossier Submission
+      </button>
+      <button class="timeline-btn" onclick="switchWeek(32)">
+        <span class="pill-week">W32-34</span> Oral Defense Showcase
+      </button>
     </div>
 
-    <script>
-        // --- INTERACTIVE CHECKLISTS ---
-        function toggleCheckbox(element) {
-            element.classList.toggle('completed');
-            const icon = element.querySelector('.checklist-icon');
-            const checkmark = element.querySelector('svg');
-            
-            if (element.classList.contains('completed')) {
-                icon.classList.remove('border-slate-500', 'bg-slate-700');
-                icon.classList.add('border-transparent', 'bg-current');
-                checkmark.style.opacity = '1';
-            } else {
-                icon.classList.add('border-slate-500', 'bg-slate-700');
-                icon.classList.remove('border-transparent', 'bg-current');
-                checkmark.style.opacity = '0';
-            }
+    <!-- DYNAMIC CHECKPOINT DISPLAY -->
+    <div id="checkpointContainer"></div>
+
+    <!-- ACTION & PROGRESS BAR -->
+    <div class="action-bar">
+      <div class="progress-track">
+        <span>Preparation Progress:</span>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <span id="progressText">0%</span>
+      </div>
+      <div>
+        <button class="btn-secondary" onclick="window.print()">🖨️ Print Roadmap</button>
+        <button class="btn-secondary" onclick="resetChecklist()">🔄 Reset Progress</button>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const checkpoints = [
+      {
+        week: 5,
+        title: "Konu ve Kaynak Belirleme (Topic & Core Message Selection)",
+        meetingType: "First Checkpoint Meeting (İlk Görüşme)",
+        desc: "Examine project topics, define your capsule's overarching historical theme, and discuss rubric expectations.",
+        questions: [
+          "What is the function of a time capsule as a historical record?",
+          "What key idea or story about our era (e.g., AI/tech reliance, environmental crisis, global youth culture) will define your capsule for 2226?",
+          "How will your theme provide a coherent picture rather than a random collection of objects?"
+        ],
+        before: [
+          "Read Task One guidelines and background on the 'Crypt of Civilization'.",
+          "Brainstorm 2 distinct candidate core messages for the year 2226.",
+          "Write down your chosen core theme on paper with a 3-sentence justification."
+        ],
+        during: [
+          "Discuss your core message with your teacher; evaluate depth and feasibility.",
+          "Review rubric criteria (Report 50%, Product 25%, Presentation 25%) and plagiarism rules.",
+          "Officially hand in your chosen topic and core message in writing."
+        ],
+        assignment: [
+          "Find at least 3-4 authoritative research sources regarding your chosen theme.",
+          "Brainstorm a preliminary list of 8-10 candidate items across diverse media.",
+          "Bring source links/notes to the next meeting."
+        ]
+      },
+      {
+        week: 7,
+        title: "Kaynak Uygunluğu ve Nesne Seçimi (Sources & Item Ideation)",
+        meetingType: "Second Checkpoint Meeting (İkinci Görüşme)",
+        desc: "Evaluate source credibility and narrow down prospective items representing your theme.",
+        questions: [
+          "Are your sources academically sound and reliable?",
+          "Which items are physical objects, digital files, written records, or visual media?",
+          "How does each candidate item uniquely represent a specific aspect of your core narrative?"
+        ],
+        before: [
+          "Bring your gathered list of sources (articles, books, digital archives).",
+          "Bring a list of 8-10 candidate items categorized by type (physical, digital, written, visual).",
+          "Draft bullet points explaining why each item matters to our present generation."
+        ],
+        during: [
+          "Review source reliability with your teacher; receive suggested additional readings.",
+          "Filter the candidate list down to the required 5–7 essential items.",
+          "Agree on whether specific items can be communicated via email check-ins if needed."
+        ],
+        assignment: [
+          "Take structured notes from approved sources on the 5-7 selected items.",
+          "Decide on your capsule product type (Physical Box/Model, Museum Catalogue, or Digital Site/iMovie).",
+          "Prepare a written project work schedule leading up to draft deadlines."
+        ]
+      },
+      {
+        week: 11,
+        title: "Tür, Plan ve Kaynakça (Medium, Work Plan & Outline)",
+        meetingType: "Third Checkpoint Meeting (Üçüncü Görüşme)",
+        desc: "Submit your written research notes, project structure outline, chosen format, and bibliography.",
+        questions: [
+          "What format will your final capsule be (Physical model, Digital presentation/iMovie, or Museum catalogue)?",
+          "What are the durability challenges of your items over 200 years (e.g., data obsolescence, plastic decay)?",
+          "How will your work be scheduled between now and the first draft in Week 18?"
+        ],
+        before: [
+          "Submit a written outline of your project plan and timeline.",
+          "Bring organized notes from your sources for each of the 5-7 items.",
+          "Prepare an initial bibliography in proper academic format.",
+          "Confirm your final product medium (Model/Box, Website/Video, or Museum Catalogue)."
+        ],
+        during: [
+          "Present your written project timeline and study notes to your teacher.",
+          "Review the outline for the written report and museum catalogue structure.",
+          "Ensure durability and preservation dilemmas are factored into your item analysis."
+        ],
+        assignment: [
+          "Write the complete First Draft of your report in Calibri 11.",
+          "Integrate mandatory speculative language (*must have been, might think, can't have known*) into every item analysis.",
+          "Be ready to submit the complete draft file in Week 18."
+        ]
+      },
+      {
+        week: 18,
+        title: "İlk Taslak Teslimi (First Draft & Speculative Language)",
+        meetingType: "Fourth Checkpoint Meeting (İlk Taslak)",
+        desc: "Submit your comprehensive written draft; receive teacher feedback on missing elements and language accuracy.",
+        questions: [
+          "Have you fully justified what each item is and what it was originally used for?",
+          "Did you apply speculative past modals (*e.g., future archeologists might believe this was...*)?",
+          "Are all borrowed facts and references properly cited to prevent plagiarism?"
+        ],
+        before: [
+          "Hand in your complete First Draft (introduction, 5-7 item justifications, conclusion).",
+          "Check that all speculative grammar patterns are correctly utilized.",
+          "Highlight 2-3 specific sections where you want teacher feedback."
+        ],
+        during: [
+          "Detailed teacher walkthrough of your draft's arguments and linguistic accuracy.",
+          "Identify weak justifications, formatting flaws, or speculative grammar errors.",
+          "Receive clear action items for revisions."
+        ],
+        assignment: [
+          "Revise the written text in accordance with all teacher feedback.",
+          "Begin assembling your physical capsule, digital slides/video, or catalogue layout.",
+          "Prepare the Second Draft for Week 23."
+        ]
+      },
+      {
+        week: 23,
+        title: "İkinci Taslak ve Sunum Planı (Second Draft & Presentation Setup)",
+        meetingType: "Fifth Checkpoint Meeting (İkinci Taslak)",
+        desc: "Submit your revised draft and agree upon the oral presentation format, visual aids, and scheduling.",
+        questions: [
+          "How have you resolved the critique and gaps identified in the first draft?",
+          "What media will accompany your 10-15 minute oral presentation (PowerPoint, video, physical model)?",
+          "How will you engage the class and demonstrate deep command of your capsule's thesis?"
+        ],
+        before: [
+          "Submit your polished Second Draft incorporating teacher corrections.",
+          "Bring presentation materials (slide deck outline, model sketches, or media storyboard).",
+          "Prepare proposed presentation preferences and equipment requirements."
+        ],
+        during: [
+          "Evaluate improvements in your second draft with the teacher.",
+          "Agree upon the presentation format, technical setup, and time allocation (10-15 min).",
+          "Receive final sign-off before assembling the final submission copy."
+        ],
+        assignment: [
+          "Complete the final report (Calibri 11, cover page with Name/No/Class, references).",
+          "Finalize the physical capsule model, digital site, or museum catalogue product.",
+          "Prepare the complete dossier for final handover in Week 29."
+        ]
+      },
+      {
+        week: 29,
+        title: "Son Kopya Teslimi (Final Report & Product Hand-in)",
+        meetingType: "Official Project Submission (Son Kopya)",
+        desc: "Formal delivery of the completed project paper (Report 50%) and tangible capsule product (Product 25%).",
+        questions: [
+          "Is the term paper formatted in Calibri 11 with complete student identification?",
+          "Is your project product presentable, durable, and completely finished?",
+          "Is your work 100% authentic and free from uncredited external help?"
+        ],
+        before: [
+          "Print/bind your final report dossier (or export clean PDF) in Calibri 11.",
+          "Complete the physical model, digital website, or catalogue product.",
+          "Double-check all citations against the rubric to avoid plagiarism penalties."
+        ],
+        during: [
+          "Officially hand in the final report and product to your teacher.",
+          "Verify the exact presentation slot assigned during Weeks 32–34.",
+          "Confirm audio-visual equipment needed for your classroom presentation."
+        ],
+        assignment: [
+          "Rehearse your oral presentation (timed strictly between 10 and 15 minutes).",
+          "Submit all presentation slides/media to your teacher exactly 1 week before your presentation day.",
+          "Prepare for spontaneous questions from the teacher and audience."
+        ]
+      },
+      {
+        week: 32,
+        title: "Sözlü Sunum ve Savunma (Oral Defense & Showcase)",
+        meetingType: "Final Assessment Showcase (Sunum Haftaları 32–34)",
+        desc: "Deliver your 10–15 minute presentation to your teacher and classmates showcasing your capsule.",
+        questions: [
+          "Can you articulate why your 5-7 items matter to 2226 within the 10-15 minute time limit?",
+          "Do you speak fluently using natural speculative phrasing without reading directly from slides?",
+          "How effectively do you handle questions regarding future misinterpretations?"
+        ],
+        before: [
+          "Deliver all presentation slides, videos, or props 1 week prior to your presentation.",
+          "Rehearse speaking smoothly with cue cards rather than reading whole paragraphs.",
+          "Bring your personal backup copy of the term paper."
+        ],
+        during: [
+          "Deliver your 10-15 minute presentation showcasing the items, core message, and future misunderstandings.",
+          "Engage the audience with clear visuals and confident speculative analysis.",
+          "Answer questions from the teacher and peers."
+        ],
+        assignment: [
+          "Complete final self-reflection on historical curation and communication.",
+          "Receive formal assessment scores based on the 50% Report, 25% Product, and 25% Presentation rubric."
+        ]
+      }
+    ];
+
+    let currentWeek = 5;
+
+    function renderCheckpoint(weekNum) {
+      const data = checkpoints.find(c => c.week === weekNum);
+      if (!data) return;
+
+      const container = document.getElementById("checkpointContainer");
+      container.innerHTML = `
+        <div class="checkpoint-card">
+          <div class="checkpoint-header">
+            <div class="checkpoint-title-grp">
+              <h2>
+                <span>Week ${data.week}</span>
+                <span class="meeting-badge">${data.meetingType}</span>
+              </h2>
+              <p>${data.title} — ${data.desc}</p>
+            </div>
+          </div>
+
+          <div class="questions-box">
+            <h4>🎯 Connected Guiding Questions</h4>
+            <ul>
+              ${data.questions.map(q => `<li>${q}</li>`).join("")}
+            </ul>
+          </div>
+
+          <div class="workflow-grid">
+            <!-- BEFORE -->
+            <div class="action-col col-before">
+              <div class="col-title">
+                <span>🎒 Before the Meeting</span>
+                <small>Student Prep</small>
+              </div>
+              <ul class="action-list">
+                ${data.before.map((task, idx) => `
+                  <li class="action-item">
+                    <input type="checkbox" id="chk_${data.week}_b_${idx}" onchange="saveProgress()" />
+                    <span>${task}</span>
+                  </li>
+                `).join("")}
+              </ul>
+            </div>
+
+            <!-- DURING -->
+            <div class="action-col col-during">
+              <div class="col-title">
+                <span>🤝 During the Meeting</span>
+                <small>Teacher Check</small>
+              </div>
+              <ul class="action-list">
+                ${data.during.map((task, idx) => `
+                  <li class="action-item">
+                    <input type="checkbox" id="chk_${data.week}_d_${idx}" onchange="saveProgress()" />
+                    <span>${task}</span>
+                  </li>
+                `).join("")}
+              </ul>
+            </div>
+
+            <!-- ASSIGNMENT -->
+            <div class="action-col col-next">
+              <div class="col-title">
+                <span>📝 Next Assignment</span>
+                <small>Post-Meeting Task</small>
+              </div>
+              <ul class="action-list">
+                ${data.assignment.map((task, idx) => `
+                  <li class="action-item">
+                    <input type="checkbox" id="chk_${data.week}_a_${idx}" onchange="saveProgress()" />
+                    <span>${task}</span>
+                  </li>
+                `).join("")}
+              </ul>
+            </div>
+          </div>
+        </div>
+      `;
+
+      loadProgress();
+      updateProgressBar();
+    }
+
+    function switchWeek(weekNum) {
+      currentWeek = weekNum;
+      document.querySelectorAll(".timeline-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("onclick").includes(weekNum));
+      });
+      renderCheckpoint(weekNum);
+    }
+
+    function saveProgress() {
+      const state = {};
+      document.querySelectorAll("input[type='checkbox']").forEach(box => {
+        state[box.id] = box.checked;
+      });
+      localStorage.setItem("time_capsule_progress", JSON.stringify(state));
+      updateProgressBar();
+    }
+
+    function loadProgress() {
+      const saved = JSON.parse(localStorage.getItem("time_capsule_progress") || "{}");
+      document.querySelectorAll("input[type='checkbox']").forEach(box => {
+        if (saved[box.id] !== undefined) {
+          box.checked = saved[box.id];
         }
+      });
+    }
 
-        // --- SCROLL-BASED FADE-IN ANIMATIONS ---
-        const sections = document.querySelectorAll('.fade-in-section');
+    function updateProgressBar() {
+      const saved = JSON.parse(localStorage.getItem("time_capsule_progress") || "{}");
+      let totalTasks = 0;
+      checkpoints.forEach(cp => {
+        totalTasks += cp.before.length + cp.during.length + cp.assignment.length;
+      });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
+      const checkedCount = Object.values(saved).filter(val => val === true).length;
+      const percentage = Math.min(100, Math.round((checkedCount / totalTasks) * 100));
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-        
-        // --- SCROLL PROGRESS BAR ---
-        const progressBar = document.getElementById('progressBar');
-        
-        function updateProgressBar() {
-            const { scrollTop, scrollHeight } = document.documentElement;
-            const scrollPercent = (scrollTop / (scrollHeight - window.innerHeight)) * 100 + '%';
-            progressBar.style.width = scrollPercent;
-        }
+      const fill = document.getElementById("progressFill");
+      const text = document.getElementById("progressText");
+      if (fill && text) {
+        fill.style.width = percentage + "%";
+        text.innerText = percentage + "% completed";
+      }
+    }
 
-        document.addEventListener('scroll', updateProgressBar);
-    </script>
+    function resetChecklist() {
+      if (confirm("Reset all tracked preparation tasks?")) {
+        localStorage.removeItem("time_capsule_progress");
+        loadProgress();
+        updateProgressBar();
+      }
+    }
+
+    // Initial render
+    document.addEventListener("DOMContentLoaded", () => {
+      renderCheckpoint(5);
+    });
+  </script>
 </body>
 </html>
-
