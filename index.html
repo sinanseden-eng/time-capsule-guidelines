@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Time Capsule 2226 — Project Guidelines & Checkpoint Tracker</title>
+  <title>Time Capsule 2226 — Project Guide & Progress Checks</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
@@ -433,7 +433,7 @@
       height: 18px;
       border: 2px solid var(--slate-300);
       border-radius: 4px;
-      outline: none;
+
       cursor: pointer;
       margin-top: 2px;
       position: relative;
@@ -457,7 +457,7 @@
       transform: translate(-50%, -50%);
     }
 
-    .action-item input[type="checkbox"]:checked + span {
+    .action-item input[type="checkbox"]:checked + label {
       text-decoration: line-through;
       color: var(--slate-600);
       opacity: 0.8;
@@ -517,6 +517,20 @@
       transition: width 0.3s ease;
     }
 
+    input[type="checkbox"]:focus-visible, button:focus-visible {
+      outline: 3px solid var(--secondary);
+      outline-offset: 3px;
+    }
+    .action-item label { cursor: pointer; }
+    @media print {
+      header { padding: 20px; color: #000; background: #fff; }
+      .header-desc, .stat-card { color: #000; }
+      .timeline-nav, .action-bar { display: none; }
+      .specs-section { margin-top: 20px; }
+      .workflow-grid { display: block; }
+      .action-col { margin-bottom: 12px; break-inside: avoid; }
+      .checkpoint-card { box-shadow: none; }
+    }
     /* Responsive */
     @media (max-width: 768px) {
       .checkpoint-header {
@@ -536,28 +550,28 @@
   <!-- HEADER -->
   <header>
     <div class="container">
-      <div class="badge-tag">Darüşşafaka Lisesi • Prep English Term Project 2026-2027</div>
+      <div class="badge-tag">English Project • A Message to the Future</div>
       <h1>A Time Capsule for the Year 2226</h1>
       <p class="header-desc">
-        How will humanity remember us in two centuries? Select 5–7 authentic artifacts, justify their historical significance, and use speculative deduction to bridge the gap between our era and the year 2226.
+        What will people in 2226 learn about life today? Choose 5–7 items for a time capsule. Explain why they matter, how they connect to your theme, and how people in the future might misunderstand them.
       </p>
 
       <div class="stats-bar">
         <div class="stat-card">
-          <div class="label">Project Weighting</div>
-          <div class="value">Report 50% • Product 25% • Talk 25%</div>
+          <div class="label">What You Will Make</div>
+          <div class="value">Report • Capsule • Talk</div>
         </div>
         <div class="stat-card">
-          <div class="label">Selected Artifacts</div>
+          <div class="label">Items to Choose</div>
           <div class="value">5 – 7 Items</div>
         </div>
         <div class="stat-card">
-          <div class="label">Oral Defense</div>
+          <div class="label">Presentation</div>
           <div class="value">10 – 15 Minutes</div>
         </div>
         <div class="stat-card">
-          <div class="label">Official Meetings</div>
-          <div class="value">5 Mandatory Checks</div>
+          <div class="label">Project Checks</div>
+          <div class="value">5 Progress Checks</div>
         </div>
       </div>
     </div>
@@ -569,93 +583,79 @@
     <section class="specs-section">
       <div class="specs-grid">
         <div class="spec-box">
-          <h3>📌 Submission Requirements</h3>
+          <h3>📌 What to Hand In</h3>
           <ul>
-            <li><strong>Strict Plagiarism Policy:</strong> Every idea, quote, and background source must be cited. Zero tolerance for copying.</li>
-            <li><strong>Typography & Layout:</strong> Term papers must be written in <strong>Calibri 11 pt</strong>, tidy, and submitted in a folder.</li>
-            <li><strong>Deliverables:</strong> Student Name, Number, and Class clearly stated on both soft copy and hard copy dossiers.</li>
+            <li><strong>Written report:</strong> Include an introduction, a section for each of your 5–7 items, a conclusion, and a source list.</li>
+            <li><strong>Finished capsule:</strong> Choose one of the three formats below. Label each item clearly.</li>
+            <li><strong>Presentation:</strong> Prepare a 10–15 minute talk about your theme and items. Use pictures or your capsule to support your ideas.</li>
+            <li><strong>Your own work:</strong> Write in your own words. Name the sources of facts, pictures, and quotations you use.</li>
           </ul>
         </div>
         <div class="spec-box">
-          <h3>📦 Final Product Options</h3>
+          <h3>📦 Choose Your Capsule Format</h3>
           <ul>
-            <li><strong>Option A (Physical):</strong> A curated time capsule box/model containing actual items, mock-ups, or 3D replicas.</li>
-            <li><strong>Option B (Digital):</strong> An interactive website, detailed presentation (PowerPoint/Keynote), or an iMovie documentary.</li>
-            <li><strong>Option C (Catalogue):</strong> A formal, high-level publication in the style of a museum catalogue.</li>
+            <li><strong>A box or model:</strong> Use real objects, copies, or small models. Add a label for each item.</li>
+            <li><strong>A digital capsule:</strong> Make a website, slide presentation, or short video showing your items and explanations.</li>
+            <li><strong>An illustrated booklet:</strong> Make a museum-style guide with a picture and explanation for each item.</li>
           </ul>
         </div>
         <div class="spec-box">
-          <h3>🎯 The 3 Core Justification Pillars</h3>
+          <h3>🎯 Explain Each Item</h3>
           <ul>
-            <li><strong>Identity & Function:</strong> What the item is and its primary purpose in our contemporary 2020s society.</li>
-            <li><strong>Narrative Alignment:</strong> Why it embodies your capsule's core message (Tech, Climate, Global Culture).</li>
-            <li><strong>Future Misinterpretation:</strong> How citizens of 2226 might misunderstand it using speculative language.</li>
+            <li><strong>What is it?</strong> Name the item and explain how people use it today.</li>
+            <li><strong>Why choose it?</strong> Explain what it shows about life today and how it connects to your theme.</li>
+            <li><strong>What might people get wrong?</strong> Give one possible misunderstanding in 2226 and explain why it could happen.</li>
+            <li><strong>Will it survive?</strong> Explain how to protect it or save a copy for the future.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- GRAMMAR HUB -->
     <section class="grammar-callout">
-      <h3>💡 Target Grammar Focus: Speculative Past & Modal Deductions</h3>
-      <p>
-        Future generations won't have our context. In your report and oral presentation, analyze how items could be misunderstood using advanced modal structures:
-      </p>
+      <h3>💡 Useful Language: Making Guesses About the Future</h3>
+      <p>Use <strong>might, may, or could</strong> to describe a possible idea. Imagine someone in 2226 finding your item. What might they think it was used for?</p>
       <div class="grammar-pills">
-        <span class="pill">they might think...</span>
-        <span class="pill">it must have been used for...</span>
-        <span class="pill">future historians could interpret it as...</span>
-        <span class="pill">they can't have known about...</span>
-        <span class="pill">it could easily be mistaken for...</span>
-        <span class="pill">it may have signified...</span>
+        <span class="pill">People in 2226 might think...</span>
+        <span class="pill">They may believe it was used for...</span>
+        <span class="pill">They could mistake it for...</span>
+        <span class="pill">This might happen because...</span>
       </div>
+      <p style="margin-top:16px"><strong>Example:</strong> People in 2226 might think a phone was a small mirror because its screen is shiny. I would add a picture of someone using it to explain its real purpose.</p>
+      <p><strong>Try this too:</strong> “It might have been used for...” describes a possible past use. “It must have been used for...” shows a strong belief based on evidence. Choose the form that fits your meaning.</p>
     </section>
 
     <!-- SECTION TITLE -->
     <div class="section-title-wrap">
-      <h2 class="section-title">Official Checkpoint Roadmap</h2>
-      <p class="section-subtitle">Synced with Darüşşafaka Proje Takip Formu — Complete your tasks before each teacher conference.</p>
+      <h2 class="section-title">Your Project, Step by Step</h2>
+      <p class="section-subtitle">Use the five checks to build your project. Agree on dates with your teacher. Tick a task only when it is finished.</p>
     </div>
 
     <!-- TIMELINE NAV -->
     <div class="timeline-nav" id="timelineNav">
-      <button class="timeline-btn active" onclick="switchWeek(5)">
-        <span class="pill-week">W5</span> Meeting 1: Topic & Core Theme
-      </button>
-      <button class="timeline-btn" onclick="switchWeek(7)">
-        <span class="pill-week">W7</span> Meeting 2: Sources & Items
-      </button>
-      <button class="timeline-btn" onclick="switchWeek(11)">
-        <span class="pill-week">W11</span> Meeting 3: Plan & Medium
-      </button>
-      <button class="timeline-btn" onclick="switchWeek(18)">
-        <span class="pill-week">W18</span> Meeting 4: First Draft
-      </button>
-      <button class="timeline-btn" onclick="switchWeek(23)">
-        <span class="pill-week">W23</span> Meeting 5: Second Draft
-      </button>
-      <button class="timeline-btn" onclick="switchWeek(29)">
-        <span class="pill-week">W29</span> Final Dossier Submission
-      </button>
-      <button class="timeline-btn" onclick="switchWeek(32)">
-        <span class="pill-week">W32-34</span> Oral Defense Showcase
-      </button>
+      <button class="timeline-btn active" onclick="switchWeek(5)">Check 1: Choose a Theme</button>
+      <button class="timeline-btn" onclick="switchWeek(7)">Check 2: Choose Items</button>
+      <button class="timeline-btn" onclick="switchWeek(11)">Check 3: Make a Plan</button>
+      <button class="timeline-btn" onclick="switchWeek(18)">Check 4: First Draft</button>
+      <button class="timeline-btn" onclick="switchWeek(23)">Check 5: Improve Your Draft</button>
+      <button class="timeline-btn" onclick="switchWeek(29)">Final Hand-in</button>
+      <button class="timeline-btn" onclick="switchWeek(32)">Presentation</button>
     </div>
 
     <!-- DYNAMIC CHECKPOINT DISPLAY -->
     <div id="checkpointContainer"></div>
 
+    <p style="color:var(--slate-600);font-size:0.9rem">Ticks are saved automatically in this browser on this device. They do not send work to your teacher. Clearing browser data removes your saved ticks.</p>
     <!-- ACTION & PROGRESS BAR -->
     <div class="action-bar">
       <div class="progress-track">
-        <span>Preparation Progress:</span>
+        <span>Overall Progress:</span>
         <div class="progress-bar-bg">
           <div class="progress-bar-fill" id="progressFill"></div>
         </div>
         <span id="progressText">0%</span>
       </div>
       <div>
-        <button class="btn-secondary" onclick="window.print()">🖨️ Print Roadmap</button>
+        <button class="btn-secondary" onclick="window.print()">🖨️ Print This Step</button>
         <button class="btn-secondary" onclick="resetChecklist()">🔄 Reset Progress</button>
       </div>
     </div>
@@ -665,188 +665,195 @@
   <script>
     const checkpoints = [
       {
-        week: 5,
-        title: "Konu ve Kaynak Belirleme (Topic & Core Message Selection)",
-        meetingType: "First Checkpoint Meeting (İlk Görüşme)",
-        desc: "Examine project topics, define your capsule's overarching historical theme, and discuss rubric expectations.",
-        questions: [
-          "What is the function of a time capsule as a historical record?",
-          "What key idea or story about our era (e.g., AI/tech reliance, environmental crisis, global youth culture) will define your capsule for 2226?",
-          "How will your theme provide a coherent picture rather than a random collection of objects?"
-        ],
-        before: [
-          "Read Task One guidelines and background on the 'Crypt of Civilization'.",
-          "Brainstorm 2 distinct candidate core messages for the year 2226.",
-          "Write down your chosen core theme on paper with a 3-sentence justification."
-        ],
-        during: [
-          "Discuss your core message with your teacher; evaluate depth and feasibility.",
-          "Review rubric criteria (Report 50%, Product 25%, Presentation 25%) and plagiarism rules.",
-          "Officially hand in your chosen topic and core message in writing."
-        ],
-        assignment: [
-          "Find at least 3-4 authoritative research sources regarding your chosen theme.",
-          "Brainstorm a preliminary list of 8-10 candidate items across diverse media.",
-          "Bring source links/notes to the next meeting."
-        ]
+            "week": 5,
+            "title": "Choose Your Theme",
+            "meetingType": "Check 1",
+            "desc": "Choose one clear message about life today.",
+            "target": "A theme and a three-sentence explanation of your message.",
+            "questions": [
+                  "What is a time capsule, and why do people make one?",
+                  "What should people in 2226 learn about life today?",
+                  "How will your items connect to the same message?"
+            ],
+            "before": [
+                  "Find out what a time capsule is. Write a one-sentence definition.",
+                  "Think of two possible themes, such as technology, the environment, or teenage life.",
+                  "Choose one theme. Write three sentences explaining what you want people in 2226 to learn."
+            ],
+            "during": [
+                  "Show your theme and explanation to your teacher.",
+                  "Explain why your theme interests you and what kinds of items you could include.",
+                  "Agree on your theme and the date of Check 2."
+            ],
+            "assignment": [
+                  "Find 3–4 useful sources about your theme. Save each title, author or creator, and link.",
+                  "List 8–10 possible items. Add one sentence explaining why each item fits your theme.",
+                  "Bring your source list and item ideas to Check 2."
+            ]
       },
       {
-        week: 7,
-        title: "Kaynak Uygunluğu ve Nesne Seçimi (Sources & Item Ideation)",
-        meetingType: "Second Checkpoint Meeting (İkinci Görüşme)",
-        desc: "Evaluate source credibility and narrow down prospective items representing your theme.",
-        questions: [
-          "Are your sources academically sound and reliable?",
-          "Which items are physical objects, digital files, written records, or visual media?",
-          "How does each candidate item uniquely represent a specific aspect of your core narrative?"
-        ],
-        before: [
-          "Bring your gathered list of sources (articles, books, digital archives).",
-          "Bring a list of 8-10 candidate items categorized by type (physical, digital, written, visual).",
-          "Draft bullet points explaining why each item matters to our present generation."
-        ],
-        during: [
-          "Review source reliability with your teacher; receive suggested additional readings.",
-          "Filter the candidate list down to the required 5–7 essential items.",
-          "Agree on whether specific items can be communicated via email check-ins if needed."
-        ],
-        assignment: [
-          "Take structured notes from approved sources on the 5-7 selected items.",
-          "Decide on your capsule product type (Physical Box/Model, Museum Catalogue, or Digital Site/iMovie).",
-          "Prepare a written project work schedule leading up to draft deadlines."
-        ]
+            "week": 7,
+            "title": "Choose Your Items and Sources",
+            "meetingType": "Check 2",
+            "desc": "Choose 5–7 items that help explain your message.",
+            "target": "A final list of 5–7 items, with a reason for each choice and useful sources.",
+            "questions": [
+                  "Who made each source, and why can you trust it?",
+                  "What does each item show about life today?",
+                  "Do the items show different parts of your theme?"
+            ],
+            "before": [
+                  "Bring your 3–4 sources, with titles and links.",
+                  "Bring your list of 8–10 possible items and the reasons for choosing them.",
+                  "Check who made each source and when it was published. Note any facts you are unsure about."
+            ],
+            "during": [
+                  "Review your sources with your teacher. Replace sources that are unclear or unreliable.",
+                  "Choose 5–7 items. Explain how each one adds something different to your capsule.",
+                  "Agree on your item list and the date of Check 3."
+            ],
+            "assignment": [
+                  "For each chosen item, take notes on its use, link to your theme, possible future misunderstanding, and how to protect it.",
+                  "Choose a box or model, a digital capsule, or an illustrated booklet.",
+                  "Make a simple report plan and a work schedule. Bring them to Check 3."
+            ]
       },
       {
-        week: 11,
-        title: "Tür, Plan ve Kaynakça (Medium, Work Plan & Outline)",
-        meetingType: "Third Checkpoint Meeting (Üçüncü Görüşme)",
-        desc: "Submit your written research notes, project structure outline, chosen format, and bibliography.",
-        questions: [
-          "What format will your final capsule be (Physical model, Digital presentation/iMovie, or Museum catalogue)?",
-          "What are the durability challenges of your items over 200 years (e.g., data obsolescence, plastic decay)?",
-          "How will your work be scheduled between now and the first draft in Week 18?"
-        ],
-        before: [
-          "Submit a written outline of your project plan and timeline.",
-          "Bring organized notes from your sources for each of the 5-7 items.",
-          "Prepare an initial bibliography in proper academic format.",
-          "Confirm your final product medium (Model/Box, Website/Video, or Museum Catalogue)."
-        ],
-        during: [
-          "Present your written project timeline and study notes to your teacher.",
-          "Review the outline for the written report and museum catalogue structure.",
-          "Ensure durability and preservation dilemmas are factored into your item analysis."
-        ],
-        assignment: [
-          "Write the complete First Draft of your report in Calibri 11.",
-          "Integrate mandatory speculative language (*must have been, might think, can't have known*) into every item analysis.",
-          "Be ready to submit the complete draft file in Week 18."
-        ]
+            "week": 11,
+            "title": "Make Your Report and Product Plan",
+            "meetingType": "Check 3",
+            "desc": "Plan the report, choose your format, and set dates for the work.",
+            "target": "A report outline, notes for every item, a source list, and a work schedule.",
+            "questions": [
+                  "What will each section of your report include?",
+                  "How will you show your items in the finished capsule?",
+                  "How could the items or digital files be damaged or lost over 200 years?"
+            ],
+            "before": [
+                  "Bring an outline: introduction, one section for each item, conclusion, and source list.",
+                  "Bring notes for all 5–7 items using the four questions in “Explain Each Item”.",
+                  "Bring your source list and a sketch or sample of your chosen capsule format.",
+                  "List the tasks still to do. Suggest a date for each task and for the first draft."
+            ],
+            "during": [
+                  "Explain your outline and show your notes to your teacher.",
+                  "Check that every item has a clear reason, a possible misunderstanding, and a way to protect or copy it.",
+                  "Agree on your work schedule and the date of Check 4."
+            ],
+            "assignment": [
+                  "Write a complete first draft using your outline.",
+                  "For every item, answer the four questions in “Explain Each Item”. Use might, may, or could for possible misunderstandings.",
+                  "Add source details where you use facts or pictures. Bring your first draft to Check 4."
+            ]
       },
       {
-        week: 18,
-        title: "İlk Taslak Teslimi (First Draft & Speculative Language)",
-        meetingType: "Fourth Checkpoint Meeting (İlk Taslak)",
-        desc: "Submit your comprehensive written draft; receive teacher feedback on missing elements and language accuracy.",
-        questions: [
-          "Have you fully justified what each item is and what it was originally used for?",
-          "Did you apply speculative past modals (*e.g., future archeologists might believe this was...*)?",
-          "Are all borrowed facts and references properly cited to prevent plagiarism?"
-        ],
-        before: [
-          "Hand in your complete First Draft (introduction, 5-7 item justifications, conclusion).",
-          "Check that all speculative grammar patterns are correctly utilized.",
-          "Highlight 2-3 specific sections where you want teacher feedback."
-        ],
-        during: [
-          "Detailed teacher walkthrough of your draft's arguments and linguistic accuracy.",
-          "Identify weak justifications, formatting flaws, or speculative grammar errors.",
-          "Receive clear action items for revisions."
-        ],
-        assignment: [
-          "Revise the written text in accordance with all teacher feedback.",
-          "Begin assembling your physical capsule, digital slides/video, or catalogue layout.",
-          "Prepare the Second Draft for Week 23."
-        ]
+            "week": 18,
+            "title": "Share Your First Draft",
+            "meetingType": "Check 4",
+            "desc": "Get feedback on your complete report before improving it.",
+            "target": "A complete first draft and a clear list of changes to make.",
+            "questions": [
+                  "Does every item have all four explanations?",
+                  "Are your ideas clear and written in your own words?",
+                  "Have you shown where your facts and pictures came from?"
+            ],
+            "before": [
+                  "Bring your full first draft: introduction, 5–7 item sections, conclusion, and source list.",
+                  "Read it once. Check that each item answers all four questions.",
+                  "Mark 2–3 parts where you would like help."
+            ],
+            "during": [
+                  "Read the marked parts with your teacher and ask your questions.",
+                  "Check your explanations, source details, and use of might, may, and could.",
+                  "Write a list of changes to make. Agree on the date of Check 5."
+            ],
+            "assignment": [
+                  "Improve the draft using your feedback list.",
+                  "Start making your capsule. Prepare labels, pictures, slides, or pages for your items.",
+                  "Bring your improved draft and a sample of your capsule to Check 5."
+            ]
       },
       {
-        week: 23,
-        title: "İkinci Taslak ve Sunum Planı (Second Draft & Presentation Setup)",
-        meetingType: "Fifth Checkpoint Meeting (İkinci Taslak)",
-        desc: "Submit your revised draft and agree upon the oral presentation format, visual aids, and scheduling.",
-        questions: [
-          "How have you resolved the critique and gaps identified in the first draft?",
-          "What media will accompany your 10-15 minute oral presentation (PowerPoint, video, physical model)?",
-          "How will you engage the class and demonstrate deep command of your capsule's thesis?"
-        ],
-        before: [
-          "Submit your polished Second Draft incorporating teacher corrections.",
-          "Bring presentation materials (slide deck outline, model sketches, or media storyboard).",
-          "Prepare proposed presentation preferences and equipment requirements."
-        ],
-        during: [
-          "Evaluate improvements in your second draft with the teacher.",
-          "Agree upon the presentation format, technical setup, and time allocation (10-15 min).",
-          "Receive final sign-off before assembling the final submission copy."
-        ],
-        assignment: [
-          "Complete the final report (Calibri 11, cover page with Name/No/Class, references).",
-          "Finalize the physical capsule model, digital site, or museum catalogue product.",
-          "Prepare the complete dossier for final handover in Week 29."
-        ]
+            "week": 23,
+            "title": "Improve Your Draft and Plan Your Talk",
+            "meetingType": "Check 5",
+            "desc": "Check your changes and prepare to finish the project.",
+            "target": "An improved report, a capsule sample, and a plan for a 10–15 minute talk.",
+            "questions": [
+                  "What did you change after Check 4, and why?",
+                  "What still needs to be finished in your capsule?",
+                  "How will you explain your theme and items without reading the whole report?"
+            ],
+            "before": [
+                  "Bring your second draft. Mark the changes you made after feedback.",
+                  "Bring your partly finished capsule or sample pages, slides, or pictures.",
+                  "Make a talk outline: introduce the theme, explain the items, and finish with your main message."
+            ],
+            "during": [
+                  "Show your changes and check whether any parts still need work.",
+                  "Review your capsule sample and talk outline with your teacher.",
+                  "Agree on the final hand-in date, presentation date, and any equipment you need."
+            ],
+            "assignment": [
+                  "Finish and proofread the report. Add a title, your name, and a complete source list.",
+                  "Finish your capsule. Check that all 5–7 items have clear labels and explanations.",
+                  "Prepare the report and capsule for the agreed hand-in date."
+            ]
       },
       {
-        week: 29,
-        title: "Son Kopya Teslimi (Final Report & Product Hand-in)",
-        meetingType: "Official Project Submission (Son Kopya)",
-        desc: "Formal delivery of the completed project paper (Report 50%) and tangible capsule product (Product 25%).",
-        questions: [
-          "Is the term paper formatted in Calibri 11 with complete student identification?",
-          "Is your project product presentable, durable, and completely finished?",
-          "Is your work 100% authentic and free from uncredited external help?"
-        ],
-        before: [
-          "Print/bind your final report dossier (or export clean PDF) in Calibri 11.",
-          "Complete the physical model, digital website, or catalogue product.",
-          "Double-check all citations against the rubric to avoid plagiarism penalties."
-        ],
-        during: [
-          "Officially hand in the final report and product to your teacher.",
-          "Verify the exact presentation slot assigned during Weeks 32–34.",
-          "Confirm audio-visual equipment needed for your classroom presentation."
-        ],
-        assignment: [
-          "Rehearse your oral presentation (timed strictly between 10 and 15 minutes).",
-          "Submit all presentation slides/media to your teacher exactly 1 week before your presentation day.",
-          "Prepare for spontaneous questions from the teacher and audience."
-        ]
+            "week": 29,
+            "title": "Hand In Your Report and Capsule",
+            "meetingType": "Final Hand-in",
+            "desc": "Submit the two finished parts of your project on the agreed date.",
+            "target": "A finished report and capsule, plus a confirmed presentation date.",
+            "questions": [
+                  "Are the report and capsule complete and easy to read or use?",
+                  "Does every item connect to your theme and include the four explanations?",
+                  "Are your source details complete, and do your files or links work?"
+            ],
+            "before": [
+                  "Check the report includes a title, your name, introduction, item sections, conclusion, and source list.",
+                  "Check that every capsule item has a label. Open your digital files and test any links.",
+                  "Save a backup of your report and any digital materials."
+            ],
+            "during": [
+                  "Hand in your finished report and capsule in the format agreed with your teacher.",
+                  "Confirm your presentation date and the equipment you will use.",
+                  "Agree on when to share your slides or video before the talk."
+            ],
+            "assignment": [
+                  "Practise your talk with a timer. Aim for 10–15 minutes.",
+                  "Use short notes and clear pictures. Practise explaining ideas in your own words.",
+                  "Share your slides or video by the agreed date. Prepare answers to the guiding questions."
+            ]
       },
       {
-        week: 32,
-        title: "Sözlü Sunum ve Savunma (Oral Defense & Showcase)",
-        meetingType: "Final Assessment Showcase (Sunum Haftaları 32–34)",
-        desc: "Deliver your 10–15 minute presentation to your teacher and classmates showcasing your capsule.",
-        questions: [
-          "Can you articulate why your 5-7 items matter to 2226 within the 10-15 minute time limit?",
-          "Do you speak fluently using natural speculative phrasing without reading directly from slides?",
-          "How effectively do you handle questions regarding future misinterpretations?"
-        ],
-        before: [
-          "Deliver all presentation slides, videos, or props 1 week prior to your presentation.",
-          "Rehearse speaking smoothly with cue cards rather than reading whole paragraphs.",
-          "Bring your personal backup copy of the term paper."
-        ],
-        during: [
-          "Deliver your 10-15 minute presentation showcasing the items, core message, and future misunderstandings.",
-          "Engage the audience with clear visuals and confident speculative analysis.",
-          "Answer questions from the teacher and peers."
-        ],
-        assignment: [
-          "Complete final self-reflection on historical curation and communication.",
-          "Receive formal assessment scores based on the 50% Report, 25% Product, and 25% Presentation rubric."
-        ]
+            "week": 32,
+            "title": "Present Your Time Capsule",
+            "meetingType": "Presentation",
+            "desc": "Explain your message and items to your audience.",
+            "target": "A clear 10–15 minute talk and answers to questions about your choices.",
+            "questions": [
+                  "Can the audience understand your theme and why you chose the items?",
+                  "Can you explain possible future misunderstandings and how to avoid them?",
+                  "Can you answer questions using your own ideas and research?"
+            ],
+            "before": [
+                  "Check your slides, video, or capsule are ready. Bring a backup copy.",
+                  "Practise with short notes rather than reading full paragraphs.",
+                  "Time your talk and adjust it to 10–15 minutes."
+            ],
+            "during": [
+                  "Introduce your theme. Show all 5–7 items and explain their use, importance, possible misunderstandings, and protection.",
+                  "Use pictures or objects to help the audience follow your ideas.",
+                  "Answer questions. If you are unsure, explain what you know and what you would need to check."
+            ],
+            "assignment": [
+                  "Write a short reflection: what went well, what was difficult, and one thing you would improve.",
+                  "Read or discuss your feedback. Note one goal for your next project."
+            ]
       }
-    ];
+];
 
     let currentWeek = 5;
 
@@ -860,15 +867,16 @@
           <div class="checkpoint-header">
             <div class="checkpoint-title-grp">
               <h2>
-                <span>Week ${data.week}</span>
+                <span>${data.title}</span>
                 <span class="meeting-badge">${data.meetingType}</span>
               </h2>
-              <p>${data.title} — ${data.desc}</p>
+              <p>${data.desc}</p>
+              <p><strong>Target for this step:</strong> ${data.target}</p>
             </div>
           </div>
 
           <div class="questions-box">
-            <h4>🎯 Connected Guiding Questions</h4>
+            <h4>🎯 Questions to Help You</h4>
             <ul>
               ${data.questions.map(q => `<li>${q}</li>`).join("")}
             </ul>
@@ -878,14 +886,14 @@
             <!-- BEFORE -->
             <div class="action-col col-before">
               <div class="col-title">
-                <span>🎒 Before the Meeting</span>
-                <small>Student Prep</small>
+                <span>🎒 Get Ready</span>
+                <small>Bring or prepare</small>
               </div>
               <ul class="action-list">
                 ${data.before.map((task, idx) => `
                   <li class="action-item">
                     <input type="checkbox" id="chk_${data.week}_b_${idx}" onchange="saveProgress()" />
-                    <span>${task}</span>
+                    <label for="chk_${data.week}_b_${idx}">${task}</label>
                   </li>
                 `).join("")}
               </ul>
@@ -894,14 +902,14 @@
             <!-- DURING -->
             <div class="action-col col-during">
               <div class="col-title">
-                <span>🤝 During the Meeting</span>
-                <small>Teacher Check</small>
+                <span>🤝 At This Step</span>
+                <small>Check together</small>
               </div>
               <ul class="action-list">
                 ${data.during.map((task, idx) => `
                   <li class="action-item">
                     <input type="checkbox" id="chk_${data.week}_d_${idx}" onchange="saveProgress()" />
-                    <span>${task}</span>
+                    <label for="chk_${data.week}_d_${idx}">${task}</label>
                   </li>
                 `).join("")}
               </ul>
@@ -910,14 +918,14 @@
             <!-- ASSIGNMENT -->
             <div class="action-col col-next">
               <div class="col-title">
-                <span>📝 Next Assignment</span>
-                <small>Post-Meeting Task</small>
+                <span>📝 Finish Next</span>
+                <small>Next target</small>
               </div>
               <ul class="action-list">
                 ${data.assignment.map((task, idx) => `
                   <li class="action-item">
                     <input type="checkbox" id="chk_${data.week}_a_${idx}" onchange="saveProgress()" />
-                    <span>${task}</span>
+                    <label for="chk_${data.week}_a_${idx}">${task}</label>
                   </li>
                 `).join("")}
               </ul>
@@ -938,32 +946,39 @@
       renderCheckpoint(weekNum);
     }
 
+    function readProgress() {
+      try {
+        const saved = JSON.parse(localStorage.getItem("time_capsule_progress_v2") || "{}");
+        return saved && typeof saved === "object" && !Array.isArray(saved) ? saved : {};
+      } catch (_) { return {}; }
+    }
+
     function saveProgress() {
-      const state = {};
+      const state = readProgress();
       document.querySelectorAll("input[type='checkbox']").forEach(box => {
         state[box.id] = box.checked;
       });
-      localStorage.setItem("time_capsule_progress", JSON.stringify(state));
+      try { localStorage.setItem("time_capsule_progress_v2", JSON.stringify(state)); } catch (_) {}
       updateProgressBar();
     }
 
     function loadProgress() {
-      const saved = JSON.parse(localStorage.getItem("time_capsule_progress") || "{}");
+      const saved = readProgress();
       document.querySelectorAll("input[type='checkbox']").forEach(box => {
-        if (saved[box.id] !== undefined) {
-          box.checked = saved[box.id];
-        }
+        box.checked = saved[box.id] === true;
       });
     }
 
     function updateProgressBar() {
-      const saved = JSON.parse(localStorage.getItem("time_capsule_progress") || "{}");
+      const saved = readProgress();
       let totalTasks = 0;
       checkpoints.forEach(cp => {
         totalTasks += cp.before.length + cp.during.length + cp.assignment.length;
       });
 
-      const checkedCount = Object.values(saved).filter(val => val === true).length;
+      const checkedCount = checkpoints.reduce((count, cp) => count +
+        [['b', cp.before], ['d', cp.during], ['a', cp.assignment]].reduce((sum, [key, tasks]) =>
+          sum + tasks.filter((_, idx) => saved[`chk_${cp.week}_${key}_${idx}`] === true).length, 0), 0);
       const percentage = Math.min(100, Math.round((checkedCount / totalTasks) * 100));
 
       const fill = document.getElementById("progressFill");
@@ -975,8 +990,8 @@
     }
 
     function resetChecklist() {
-      if (confirm("Reset all tracked preparation tasks?")) {
-        localStorage.removeItem("time_capsule_progress");
+      if (confirm("Reset all ticks in every step?")) {
+        try { localStorage.removeItem("time_capsule_progress_v2"); } catch (_) {}
         loadProgress();
         updateProgressBar();
       }
@@ -989,3 +1004,4 @@
   </script>
 </body>
 </html>
+
