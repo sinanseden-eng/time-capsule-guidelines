@@ -558,6 +558,11 @@
     .honesty-table td:first-child { min-width: 140px; }
     .honesty-check { background: #fef3c7; padding: 16px; border-radius: 8px; }
     summary:focus-visible { outline: 3px solid var(--secondary); outline-offset: 3px; }
+
+    .academic-honesty-panel { margin-top: 36px; background: #fff; border: 1px solid #fcd34d; border-radius: var(--radius-md); overflow: hidden; }
+    .academic-honesty-panel > summary { padding: 20px 24px; background: #fef3c7; color: #854d0e; font-size: 1.15rem; font-weight: 700; cursor: pointer; }
+    .academic-honesty-panel > .honesty-hub { margin-top: 0; padding: 24px; border-top: 0; }
+    .action-bar { margin-bottom: 40px; }
   </style>
 </head>
 <body>
@@ -626,6 +631,45 @@
       </div>
     </section>
 
+    <!-- Weekly meetings -->
+    <!-- SECTION TITLE -->
+    <div class="section-title-wrap">
+      <h2 class="section-title">Your Project, Step by Step</h2>
+      <p class="section-subtitle">Use the five checks to build your project. The tabs show the week for each check, the final hand-in, and the presentation. Confirm the exact dates with your teacher. Tick a task only when it is finished.</p>
+    </div>
+
+    <!-- TIMELINE NAV -->
+    <div class="timeline-nav" id="timelineNav">
+      <button class="timeline-btn active" onclick="switchWeek(5)"><span class="pill-week">Week 5</span> Check 1: Choose a Theme</button>
+      <button class="timeline-btn" onclick="switchWeek(7)"><span class="pill-week">Week 7</span> Check 2: Choose Items</button>
+      <button class="timeline-btn" onclick="switchWeek(11)"><span class="pill-week">Week 11</span> Check 3: Make a Plan</button>
+      <button class="timeline-btn" onclick="switchWeek(18)"><span class="pill-week">Week 18</span> Check 4: First Draft</button>
+      <button class="timeline-btn" onclick="switchWeek(23)"><span class="pill-week">Week 23</span> Check 5: Improve Your Draft</button>
+      <button class="timeline-btn" onclick="switchWeek(29)"><span class="pill-week">Week 29 • 30 April</span> Final Hand-in</button>
+      <button class="timeline-btn" onclick="switchWeek(32)"><span class="pill-week">Weeks 32–34</span> Presentation</button>
+    </div>
+
+    <!-- DYNAMIC CHECKPOINT DISPLAY -->
+    <div id="checkpointContainer"></div>
+
+    <p style="color:var(--slate-600);font-size:0.9rem">Ticks are saved automatically in this browser on this device. They do not send work to your teacher. Clearing browser data removes your saved ticks.</p>
+    <!-- ACTION & PROGRESS BAR -->
+    <div class="action-bar">
+      <div class="progress-track">
+        <span>Overall Progress:</span>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <span id="progressText">0%</span>
+      </div>
+      <div>
+        <button class="btn-secondary" onclick="window.print()">🖨️ Print This Step</button>
+        <button class="btn-secondary" onclick="resetChecklist()">🔄 Reset Progress</button>
+      </div>
+    </div>
+
+
+
     <section class="grammar-callout">
       <h3>💡 Useful Language: Making Guesses About the Future</h3>
       <p>Use <strong>might, may, or could</strong> to describe a possible idea. Imagine someone in 2226 finding your item. What might they think it was used for?</p>
@@ -638,12 +682,19 @@
       <p style="margin-top:16px"><strong>Example:</strong> People in 2226 might think a phone was a small mirror because its screen is shiny. I would add a picture of someone using it to explain its real purpose.</p>
       <p><strong>Try this too:</strong> “It might have been used for...” describes a possible past use. “It must have been used for...” shows a strong belief based on evidence. Choose the form that fits your meaning.</p>
     
+      
+    </section>
+
+
+
+
+    <details class="academic-honesty-panel">
+      <summary>🛡️ Academic Honesty</summary>
       <div class="honesty-hub">
-        <h3>🛡️ Academic Honesty: Show What Is Yours and What Comes from a Source</h3>
         <p><strong>Academic honesty means being clear about whose words, ideas, and work you use.</strong> Your project should show your understanding. Give credit for borrowed ideas, facts, exact words, pictures, charts, and videos. A source note tells the reader where information came from.</p>
         <p><strong>A key rule:</strong> Changing a few words, translating a text, or turning a quotation into reported speech does not make the idea yours. You still need to name the source. A source list at the end is not enough on its own: add a source note beside the borrowed information too.</p>
 
-        <details open>
+        <details>
           <summary>✍️ Quote, paraphrase, or summarise: which should I use?</summary>
           <p><strong>Practice only:</strong> All examples here use an invented author, Alex Green, and an invented text from 2026. They show the method. Do not use this author or text as a real source in your project.</p>
           <p><strong>Original practice sentence:</strong> “Everyday objects can show future generations how people lived.”</p>
@@ -687,43 +738,7 @@
 
         <p class="honesty-check"><strong>✅ Before you hand in:</strong> Are exact words in quotation marks? Are paraphrases truly in your own words? Are borrowed ideas and visuals credited beside them? Does every source note match the source list? Can you explain what you wrote?</p>
       </div>
-    </section>
-
-    <!-- SECTION TITLE -->
-    <div class="section-title-wrap">
-      <h2 class="section-title">Your Project, Step by Step</h2>
-      <p class="section-subtitle">Use the five checks to build your project. The tabs show the week for each check, the final hand-in, and the presentation. Confirm the exact dates with your teacher. Tick a task only when it is finished.</p>
-    </div>
-
-    <!-- TIMELINE NAV -->
-    <div class="timeline-nav" id="timelineNav">
-      <button class="timeline-btn active" onclick="switchWeek(5)"><span class="pill-week">Week 5</span> Check 1: Choose a Theme</button>
-      <button class="timeline-btn" onclick="switchWeek(7)"><span class="pill-week">Week 7</span> Check 2: Choose Items</button>
-      <button class="timeline-btn" onclick="switchWeek(11)"><span class="pill-week">Week 11</span> Check 3: Make a Plan</button>
-      <button class="timeline-btn" onclick="switchWeek(18)"><span class="pill-week">Week 18</span> Check 4: First Draft</button>
-      <button class="timeline-btn" onclick="switchWeek(23)"><span class="pill-week">Week 23</span> Check 5: Improve Your Draft</button>
-      <button class="timeline-btn" onclick="switchWeek(29)"><span class="pill-week">Week 29 • 30 April</span> Final Hand-in</button>
-      <button class="timeline-btn" onclick="switchWeek(32)"><span class="pill-week">Weeks 32–34</span> Presentation</button>
-    </div>
-
-    <!-- DYNAMIC CHECKPOINT DISPLAY -->
-    <div id="checkpointContainer"></div>
-
-    <p style="color:var(--slate-600);font-size:0.9rem">Ticks are saved automatically in this browser on this device. They do not send work to your teacher. Clearing browser data removes your saved ticks.</p>
-    <!-- ACTION & PROGRESS BAR -->
-    <div class="action-bar">
-      <div class="progress-track">
-        <span>Overall Progress:</span>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progressFill"></div>
-        </div>
-        <span id="progressText">0%</span>
-      </div>
-      <div>
-        <button class="btn-secondary" onclick="window.print()">🖨️ Print This Step</button>
-        <button class="btn-secondary" onclick="resetChecklist()">🔄 Reset Progress</button>
-      </div>
-    </div>
+    </details>
 
   </main>
 
